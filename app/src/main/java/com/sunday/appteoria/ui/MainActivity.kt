@@ -1,4 +1,4 @@
-package com.sunday.appteoria
+package com.sunday.appteoria.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -10,33 +10,21 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.sunday.appteoria.ui.theme.AppTeoriaTheme
+import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.lifecycle.HiltViewModel
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            AppTeoriaTheme {
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background
-                ) {
-                    Greeting("Android")
-                }
+            val viewModel = hiltViewModel<ThemeViewModel>()
+            AppTeoriaTheme(darkTheme = viewModel.state.darkThemeValue) {
+                ThemeScreen(viewModel)
             }
         }
     }
 }
 
-@Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    AppTeoriaTheme {
-        Greeting("Android")
-    }
-}

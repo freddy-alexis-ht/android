@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">AppTeoria</string>
+    <string name="dark_theme_enabled">Dark Theme enabled</string>
 </resources>
