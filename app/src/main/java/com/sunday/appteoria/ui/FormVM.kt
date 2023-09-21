@@ -16,7 +16,7 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import javax.inject.Inject
 
 @HiltViewModel
-class NameVM @Inject constructor(
+class FormVM @Inject constructor(
     private val insertNameUseCase: InsertNameUseCase,
     private val getNameUseCase: GetNameUseCase,
 ) : ViewModel() {
@@ -25,16 +25,16 @@ class NameVM @Inject constructor(
         viewModelScope.launch { getNameFromDataStore() }
     }
 
-    var state by mutableStateOf(NameState())
+    var state by mutableStateOf(FormState())
         private set
 
     private val uiEventChannel = Channel<UiEvent>()
     val uiEventFlow = uiEventChannel.receiveAsFlow()
 
-    fun onEvent(event: NameEvent) {
+    fun onEvent(event: FormEvent) {
         when (event) {
-            is NameEvent.OnButtonClick -> onButtonClick(event.name)
-            is NameEvent.OnChangeName -> state = state.copy(name = event.name)
+            is FormEvent.OnButtonClick -> onButtonClick(event.name)
+            is FormEvent.OnChangeName -> state = state.copy(name = event.name)
         }
     }
 
@@ -55,11 +55,12 @@ class NameVM @Inject constructor(
                     is Answer.Success -> {
                         uiEventChannel.send(
                             UiEvent.ShowSnackBar(
-                                message = answer.message
+                                message = answer.message,
                             )
                         )
+                        state = state.copy(nameError = null)
                     }
-                    is Answer.Loading -> TODO()
+//                    is Answer.Loading -> TODO()
                 }
             }
     }
@@ -78,7 +79,7 @@ class NameVM @Inject constructor(
                     is Answer.Success -> {
                         state = state.copy(nameStored = answer.data as String)
                     }
-                    is Answer.Loading -> TODO()
+//                    is Answer.Loading -> TODO()
                 }
             }
     }

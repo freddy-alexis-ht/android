@@ -14,7 +14,7 @@ sealed class Answer<T>(
         message: UiText? = null
     ): Answer<T>(message = message)
 
-    class Loading<T>(
-        data: T? = null
-    ): Answer<T>(data)
+//    class Loading<T>(
+//        data: T? = null
+//    ): Answer<T>(data)
 }

@@ -1,7 +1,6 @@
 package com.sunday.appteoria.ui
 
 import android.content.Context
-import android.health.connect.datatypes.BodyFatRecord
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
@@ -9,14 +8,14 @@ import androidx.compose.runtime.LaunchedEffect
 import com.sunday.appteoria.util.UiText
 
 @Composable
-fun NameScreen(nameVM: NameVM, context: Context) {
+fun NameScreen(formVM: FormVM, context: Context) {
 
-    val state = nameVM.state
+    val state = formVM.state
     val scaffoldState: ScaffoldState = rememberScaffoldState()
     LaunchedEffect(scaffoldState.snackbarHostState) {
-        nameVM.uiEventFlow.collect { event ->
+        formVM.uiEventFlow.collect { event ->
             when (event) {
-                is NameVM.UiEvent.ShowSnackBar -> event.message?.let {
+                is FormVM.UiEvent.ShowSnackBar -> event.message?.let {
                     scaffoldState.snackbarHostState.showSnackbar(
                         message = it.asString(context)
                     )
@@ -31,14 +30,14 @@ fun NameScreen(nameVM: NameVM, context: Context) {
             )
             InputText(
                 name = state.name,
-                onChange = { nameVM.onEvent(NameEvent.OnChangeName(it)) }
+                onChange = { formVM.onEvent(FormEvent.OnChangeName(it)) }
             )
             ErrorText(
                 nameError = state.nameError
             )
             SubmitButton(
                 name = state.name,
-                onClick = { nameVM.onEvent(NameEvent.OnButtonClick(it)) }
+                onClick = { formVM.onEvent(FormEvent.OnButtonClick(it)) }
             )
         }
     }

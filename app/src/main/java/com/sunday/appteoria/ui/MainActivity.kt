@@ -6,12 +6,9 @@ import androidx.activity.compose.setContent
 import androidx.compose.material.MaterialTheme
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
-import androidx.core.content.ContextCompat
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.sunday.appteoria.ui.theme.AppTeoriaTheme
 import dagger.hilt.android.AndroidEntryPoint
-import com.sunday.appteoria.R
-import com.sunday.appteoria.ui.theme.Green900
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -20,12 +17,12 @@ class MainActivity : ComponentActivity() {
         setContent {
             // another way (but color fixed)
             // this.window.statusBarColor = ContextCompat.getColor(this,R.color.green_900)
-            val nameVM = hiltViewModel<NameVM>()
+            val formVM = hiltViewModel<FormVM>()
             val context = LocalContext.current
             AppTeoriaTheme {
                 // Theory says it has to be set in each activity
                 window?.statusBarColor = MaterialTheme.colors.primaryVariant.toArgb()
-                NameScreen(nameVM, context)
+                NameScreen(formVM, context)
             }
         }
     }
