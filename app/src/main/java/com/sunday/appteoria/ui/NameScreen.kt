@@ -64,7 +64,7 @@ fun InputText(
 @Composable
 fun ErrorText(nameError: UiText?) {
     nameError?.let { error ->
-        Text(text = error.asString())
+        Text(text = error.asString(), color = MaterialTheme.colors.onError)
     }
 }
 
