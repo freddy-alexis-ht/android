@@ -1,14 +1,18 @@
 package com.sunday.appteoria.ui
 
 import android.content.Context
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import com.sunday.appteoria.util.UiText
 
 @Composable
-fun NameScreen(formVM: FormVM, context: Context) {
+fun FormScreen(formVM: FormVM, context: Context) {
 
     val state = formVM.state
     val scaffoldState: ScaffoldState = rememberScaffoldState()
@@ -23,22 +27,29 @@ fun NameScreen(formVM: FormVM, context: Context) {
             }
         }
     }
-    Scaffold(scaffoldState = scaffoldState) {
-        Column() {
-            WelcomeText(
-                nameStored = state.nameStored
-            )
-            InputText(
-                name = state.name,
-                onChange = { formVM.onEvent(FormEvent.OnChangeName(it)) }
-            )
-            ErrorText(
-                nameError = state.nameError
-            )
-            SubmitButton(
-                name = state.name,
-                onClick = { formVM.onEvent(FormEvent.OnButtonClick(it)) }
-            )
+
+    if(state.isLoading) {
+        Box(Modifier.fillMaxSize()) {
+            CircularProgressIndicator(Modifier.align(Alignment.Center))
+        }
+    }else{
+        Scaffold(scaffoldState = scaffoldState) {
+            Column() {
+                WelcomeText(
+                    nameStored = state.nameStored
+                )
+                InputText(
+                    name = state.name,
+                    onChange = { formVM.onEvent(FormEvent.OnChangeName(it)) }
+                )
+                ErrorText(
+                    nameError = state.nameError
+                )
+                SubmitButton(
+                    name = state.name,
+                    onClick = { formVM.onEvent(FormEvent.OnButtonClick(it)) }
+                )
+            }
         }
     }
 }

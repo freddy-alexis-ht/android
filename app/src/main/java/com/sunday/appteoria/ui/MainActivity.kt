@@ -22,7 +22,7 @@ class MainActivity : ComponentActivity() {
             AppTeoriaTheme {
                 // Theory says it has to be set in each activity
                 window?.statusBarColor = MaterialTheme.colors.primaryVariant.toArgb()
-                NameScreen(formVM, context)
+                FormScreen(formVM, context)
             }
         }
     }

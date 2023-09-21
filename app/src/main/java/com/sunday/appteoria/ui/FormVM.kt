@@ -12,6 +12,7 @@ import com.sunday.appteoria.util.UiText
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.receiveAsFlow
 import javax.inject.Inject
 
@@ -21,12 +22,18 @@ class FormVM @Inject constructor(
     private val getNameUseCase: GetNameUseCase,
 ) : ViewModel() {
 
-    init {
-        viewModelScope.launch { getNameFromDataStore() }
-    }
-
     var state by mutableStateOf(FormState())
         private set
+
+    init {
+        viewModelScope.launch {
+            state = state.copy(isLoading = true)
+            getNameFromDataStore()
+            delay(500L)
+            state = state.copy(isLoading = false)
+        }
+
+    }
 
     private val uiEventChannel = Channel<UiEvent>()
     val uiEventFlow = uiEventChannel.receiveAsFlow()
