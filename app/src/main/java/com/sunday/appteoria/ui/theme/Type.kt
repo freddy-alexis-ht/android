@@ -22,18 +22,21 @@ val Typography = Typography(
     body1 = TextStyle(
         fontFamily = Inconsolata,
         fontWeight = FontWeight.Normal,
+        fontSize = 18.sp
+    ),
+    body2 = TextStyle(
+        fontFamily = Inconsolata,
+        fontWeight = FontWeight.Normal,
         fontSize = 16.sp
-    )
-    /* Other default text styles to override
+    ),
     button = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.W500,
-        fontSize = 14.sp
+        fontFamily = Inconsolata,
+        fontWeight = FontWeight.Medium,
+        fontSize = 16.sp
     ),
     caption = TextStyle(
-        fontFamily = FontFamily.Default,
+        fontFamily = Inconsolata,
         fontWeight = FontWeight.Normal,
-        fontSize = 12.sp
+        fontSize = 14.sp
     )
-    */
 )

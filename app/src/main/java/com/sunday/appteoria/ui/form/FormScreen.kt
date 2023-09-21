@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -37,17 +38,17 @@ fun FormScreen(formVM: FormVM, context: Context) {
     }else{
         Scaffold(scaffoldState = scaffoldState) {
             Column() {
-                WelcomeText(
+                TextWelcome(
                     nameStored = state.nameStored
                 )
-                InputText(
+                TextFieldName(
                     name = state.name,
                     onChange = { formVM.onEvent(FormEvent.OnChangeName(it)) }
                 )
-                ErrorText(
+                TextNameError(
                     nameError = state.nameError
                 )
-                SubmitButton(
+                ButtonSubmit(
                     name = state.name,
                     onClick = { formVM.onEvent(FormEvent.OnButtonClick(it)) }
                 )
@@ -57,35 +58,49 @@ fun FormScreen(formVM: FormVM, context: Context) {
 }
 
 @Composable
-fun WelcomeText(nameStored: String) {
+fun TextWelcome(nameStored: String) {
     Text(text = stringResource(id = R.string.form_welcome_text, nameStored) )
 }
 
 @Composable
-fun InputText(
+fun TextFieldName(
     name: String,
     onChange: (String) -> Unit,
+    label: String = stringResource(id = R.string.form_text_field_name),
 ) {
     OutlinedTextField(
         value = name,
         onValueChange = { onChange(it) },
-        label = { Text(text = "Name") }
+//        label = { Text(text = label) }
+        label = {
+            CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
+                Text(text = label, style = MaterialTheme.typography.body2)
+            }
+        }
     )
 }
 
 @Composable
-fun ErrorText(nameError: UiText?) {
+fun TextNameError(nameError: UiText?) {
     nameError?.let { error ->
-        Text(text = error.asString(), color = MaterialTheme.colors.onError)
+        Text(
+            text = error.asString(),
+            color = MaterialTheme.colors.onError,
+            style = MaterialTheme.typography.button
+        )
     }
 }
 
 @Composable
-fun SubmitButton(
+fun ButtonSubmit(
     name: String,
     onClick: (String) -> Unit,
+    label: String = stringResource(id = R.string.form_button_send),
 ) {
     Button(onClick = { onClick(name) }) {
-        Text(text = "Enviar")
+        Text(
+            text = "Enviar",
+            style = MaterialTheme.typography.button
+        )
     }
 }

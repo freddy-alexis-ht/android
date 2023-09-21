@@ -12,4 +12,6 @@
 
     <!-- Form -->
     <string name="form_welcome_text">Hola %1$s!</string>
+    <string name="form_text_field_name">Nombre</string>
+    <string name="form_button_send">Enviar</string>
 </resources>
