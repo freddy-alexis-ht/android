@@ -1,4 +1,4 @@
-package com.sunday.appteoria.ui
+package com.sunday.appteoria.ui.form
 
 import com.sunday.appteoria.util.UiText
 

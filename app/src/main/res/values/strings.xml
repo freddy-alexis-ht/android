@@ -1,8 +1,15 @@
 <resources>
     <string name="app_name">AppTeoria</string>
+
+    <!-- DataStore answers -->
     <string name="error_on_value_saving">Error al guardar nombre en DataStore.</string>
     <string name="success_on_value_saving">Nombre guardado con éxito en DataStore.</string>
     <string name="error_on_value_reading">Error al leer el nombre desde DataStore.</string>
     <string name="success_on_value_reading">Nombre recuperado con éxito del DataStore.</string>
-    <string name="error_name_can_not_be_empty">El nombre no puede estar vacío.</string>
+
+    <!-- Validation -->
+    <string name="validation_error_name_can_not_be_empty">El nombre no puede estar vacío.</string>
+
+    <!-- Form -->
+    <string name="form_welcome_text">Hola %1$s!</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.sunday.appteoria.ui
+package com.sunday.appteoria.ui.form
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf

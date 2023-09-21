@@ -1,4 +1,4 @@
-package com.sunday.appteoria.ui
+package com.sunday.appteoria.ui.form
 
 import android.content.Context
 import androidx.compose.foundation.layout.Box
@@ -9,7 +9,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import com.sunday.appteoria.util.UiText
+import com.sunday.appteoria.R
 
 @Composable
 fun FormScreen(formVM: FormVM, context: Context) {
@@ -56,7 +58,7 @@ fun FormScreen(formVM: FormVM, context: Context) {
 
 @Composable
 fun WelcomeText(nameStored: String) {
-    Text(text = "Hola, $nameStored")
+    Text(text = stringResource(id = R.string.form_welcome_text, nameStored) )
 }
 
 @Composable
