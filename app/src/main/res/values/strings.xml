@@ -9,6 +9,8 @@
 
     <!-- Validation -->
     <string name="validation_error_name_can_not_be_empty">El nombre no puede estar vacío.</string>
+    <string name="validation_error_length_password_too_short">La contraseña debe tener mínimo %1$d caracteres.</string>
+    <string name="validation_error_not_contains_letters_and_digits">La contraseña debe tener letras y números.</string>
 
     <!-- Form -->
     <string name="form_welcome_text">Hola %1$s!</string>

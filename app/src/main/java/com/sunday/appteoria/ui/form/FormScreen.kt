@@ -67,8 +67,7 @@ fun FormScreen(formVM: FormVM, context: Context) {
                     passwordError = state.passwordError
                 )
                 ButtonSubmit(
-                    name = state.name,
-                    onClick = { formVM.onEvent(FormEvent.OnButtonClick(it)) }
+                    onClick = { formVM.onEvent(FormEvent.OnButtonClick) }
                 )
             }
         }
@@ -175,11 +174,10 @@ fun TextFieldError(error: UiText?) {
 
 @Composable
 fun ButtonSubmit(
-    name: String,
-    onClick: (String) -> Unit,
+    onClick: () -> Unit,
     label: String = stringResource(id = R.string.form_button_send),
 ) {
-    Button(onClick = { onClick(name) }) {
+    Button(onClick = { onClick() }) {
         Text(
             text = label,
             style = MaterialTheme.typography.button

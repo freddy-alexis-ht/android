@@ -42,34 +42,37 @@ class FormVM @Inject constructor(
         when (event) {
             is FormEvent.OnChangeName -> state = state.copy(name = event.name)
             is FormEvent.OnChangePassword -> state = state.copy(password = event.password)
-            is FormEvent.OnButtonClick -> onButtonClick(event.name)
-            is FormEvent.OnPasswordVisibility -> state = state.copy(showPassword = event.showPassword)
+            is FormEvent.OnButtonClick -> onButtonClick()
+            is FormEvent.OnPasswordVisibility -> state =
+                state.copy(showPassword = event.showPassword)
         }
     }
 
-    private fun onButtonClick(name: String) {
+    private fun onButtonClick() {
         viewModelScope.launch {
-            setNameIntoDataStore(name)
+            setNameIntoDataStore(state)
             getNameFromDataStore()
         }
     }
 
-    private suspend fun setNameIntoDataStore(name: String) {
-        insertNameUseCase(name)
-            .also { answer ->
-                when (answer) {
-                    is Answer.Error -> {
-                        state = state.copy(nameError = answer.message)
-                    }
-                    is Answer.Success -> {
-                        uiEventChannel.send(
-                            UiEvent.ShowSnackBar(
-                                message = answer.message,
-                            )
+    private suspend fun setNameIntoDataStore(stateEntered: FormState) {
+        insertNameUseCase(stateEntered)
+            .also { answers ->
+                val hasError = answers.any { it is Answer.Error }
+                if (hasError) {
+                    state = state.copy(
+                        nameError = answers.component1().message,
+                        passwordError = answers.component2().message)
+                } else {
+                    uiEventChannel.send(
+                        UiEvent.ShowSnackBar(
+                            message = answers.component1().message,
                         )
-                        state = state.copy(nameError = null)
-                    }
-//                    is Answer.Loading -> TODO()
+                    )
+                    state = state.copy(
+                        nameError = null,
+                        passwordError = null
+                    )
                 }
             }
     }
@@ -88,7 +91,6 @@ class FormVM @Inject constructor(
                     is Answer.Success -> {
                         state = state.copy(nameStored = answer.data as String)
                     }
-//                    is Answer.Loading -> TODO()
                 }
             }
     }
