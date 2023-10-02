@@ -40,8 +40,10 @@ class FormVM @Inject constructor(
 
     fun onEvent(event: FormEvent) {
         when (event) {
-            is FormEvent.OnButtonClick -> onButtonClick(event.name)
             is FormEvent.OnChangeName -> state = state.copy(name = event.name)
+            is FormEvent.OnChangePassword -> state = state.copy(password = event.password)
+            is FormEvent.OnButtonClick -> onButtonClick(event.name)
+            is FormEvent.OnPasswordVisibility -> state = state.copy(showPassword = event.showPassword)
         }
     }
 

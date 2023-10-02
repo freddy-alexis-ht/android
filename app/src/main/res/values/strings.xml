@@ -13,5 +13,8 @@
     <!-- Form -->
     <string name="form_welcome_text">Hola %1$s!</string>
     <string name="form_text_field_name">Nombre</string>
+    <string name="form_text_field_password">Contraseña</string>
+    <string name="form_text_field_password_show_password">Ver contraseña</string>
+    <string name="form_text_field_password_hide_password">Ocultar contraseña</string>
     <string name="form_button_send">Enviar</string>
 </resources>
