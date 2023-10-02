@@ -12,15 +12,16 @@ class ValidatePassword @Inject constructor() {
         if (password.length < Constants.MIN_PASSWORD_LENGTH) {
             return Answer.Error(
                 message = UiText.StringResource(
-                    R.string.validation_error_length_password_too_short,
+                    R.string.validation_error_password_length_too_short,
                     Constants.MIN_PASSWORD_LENGTH
                 )
             )
         }
-        val containsLetterAndDigits = password.any { it.isDigit() } && password.any { it.isLetter() }
+        val containsLetterAndDigits =
+            password.any { it.isDigit() } && password.any { it.isLetter() }
         if (!containsLetterAndDigits) {
             return Answer.Error(
-                message = UiText.StringResource(R.string.validation_error_not_contains_letters_and_digits)
+                message = UiText.StringResource(R.string.validation_error_password_not_contains_letters_and_digits)
             )
         }
         return Answer.Success(password)

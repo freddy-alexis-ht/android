@@ -25,10 +25,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.*
 import com.sunday.appteoria.util.UiText
 import com.sunday.appteoria.R
-import com.sunday.appteoria.ui.form.components.ButtonSubmit
-import com.sunday.appteoria.ui.form.components.TextFieldName
-import com.sunday.appteoria.ui.form.components.TextFieldPassword
-import com.sunday.appteoria.ui.form.components.TextWelcome
+import com.sunday.appteoria.ui.form.components.*
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
@@ -62,6 +59,16 @@ fun FormScreen(formVM: FormVM, context: Context) {
                     name = state.name,
                     onChange = { formVM.onEvent(FormEvent.OnChangeName(it)) },
                     nameError = state.nameError
+                )
+                TextFieldEmail(
+                    email = state.email,
+                    onChange = { formVM.onEvent(FormEvent.OnChangeEmail(it)) },
+                    emailError = state.emailError
+                )
+                TextFieldPhone(
+                    phone = state.phone,
+                    onChange = { formVM.onEvent(FormEvent.OnChangePhone(it)) },
+                    phoneError = state.phoneError
                 )
                 TextFieldPassword(
                     password = state.password,

@@ -41,6 +41,8 @@ class FormVM @Inject constructor(
     fun onEvent(event: FormEvent) {
         when (event) {
             is FormEvent.OnChangeName -> state = state.copy(name = event.name)
+            is FormEvent.OnChangeEmail -> state = state.copy(email = event.email)
+            is FormEvent.OnChangePhone -> state = state.copy(phone = event.phone)
             is FormEvent.OnChangePassword -> state = state.copy(password = event.password)
             is FormEvent.OnButtonClick -> onButtonClick()
             is FormEvent.OnPasswordVisibility -> state =
@@ -62,7 +64,10 @@ class FormVM @Inject constructor(
                 if (hasError) {
                     state = state.copy(
                         nameError = answers.component1().message,
-                        passwordError = answers.component2().message)
+                        emailError = answers.component2().message,
+                        phoneError = answers.component3().message,
+                        passwordError = answers.component4().message
+                    )
                 } else {
                     uiEventChannel.send(
                         UiEvent.ShowSnackBar(
@@ -71,6 +76,8 @@ class FormVM @Inject constructor(
                     )
                     state = state.copy(
                         nameError = null,
+                        emailError = null,
+                        phoneError = null,
                         passwordError = null
                     )
                 }

@@ -9,7 +9,9 @@ class ValidateName @Inject constructor() {
 
     operator fun invoke(name: String): Answer<String> {
         if(name.isBlank()) {
-            return Answer.Error(UiText.StringResource(R.string.validation_error_name_can_not_be_empty))
+            return Answer.Error(
+                message = UiText.StringResource(R.string.validation_error_name_can_not_be_empty)
+            )
         }
         return Answer.Success(name)
     }

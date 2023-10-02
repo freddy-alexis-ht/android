@@ -21,7 +21,7 @@ import com.sunday.appteoria.util.UiText
 
 @Composable
 fun TextWelcome(nameStored: String) {
-    Text(text = stringResource(id = R.string.form_welcome_text, nameStored) )
+    Text(text = stringResource(id = R.string.form_text_welcome, nameStored) )
 }
 
 @Composable
@@ -49,6 +49,62 @@ fun TextFieldName(
         )
     )
     nameError?.let { error -> TextFieldError(error = error)}
+}
+
+@Composable
+fun TextFieldEmail(
+    email: String,
+    onChange: (String) -> Unit,
+    emailError: UiText?,
+    label: String = stringResource(id = R.string.form_text_field_email),
+    localFocusManager: FocusManager = LocalFocusManager.current,
+) {
+   OutlinedTextField(
+       value = email,
+       onValueChange = { onChange(it) },
+       label = {
+           CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
+               Text(text = label, style = MaterialTheme.typography.body2)
+           }
+       },
+       keyboardOptions = KeyboardOptions(
+           keyboardType = KeyboardType.Email,
+           capitalization = KeyboardCapitalization.None,
+           imeAction = ImeAction.Next
+       ),
+       keyboardActions = KeyboardActions(
+           onNext = {localFocusManager.moveFocus(FocusDirection.Down)}
+       )
+   )
+   emailError?.let { error -> TextFieldError(error = error) }
+}
+
+@Composable
+fun TextFieldPhone(
+    phone: String,
+    onChange: (String) -> Unit,
+    phoneError: UiText?,
+    label: String = stringResource(id = R.string.form_text_field_phone),
+    localFocusManager: FocusManager = LocalFocusManager.current,
+) {
+    OutlinedTextField(
+        value = phone,
+        onValueChange = { onChange(it) },
+        label = {
+            CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
+                Text(text = label, style = MaterialTheme.typography.body2)
+            }
+        },
+        keyboardOptions = KeyboardOptions(
+            keyboardType = KeyboardType.Phone,
+            capitalization = KeyboardCapitalization.None,
+            imeAction = ImeAction.Next
+        ),
+        keyboardActions = KeyboardActions(
+            onNext = {localFocusManager.moveFocus(FocusDirection.Down)}
+        )
+    )
+    phoneError?.let { error -> TextFieldError(error = error) }
 }
 
 @OptIn(ExperimentalComposeUiApi::class)

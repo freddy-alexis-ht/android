@@ -6,8 +6,13 @@ data class FormState(
     val name: String = "",
     val nameError: UiText? = null,
     val nameStored: String = "Amigo",
+    val email: String = "",
+    val emailError: UiText? = null,
+    val phone: String = "",
+    val phoneError: UiText? = null,
     val password: String = "",
     val showPassword: Boolean = false,
     val passwordError: UiText? = null,
     val isLoading: Boolean = false
-)
+) {
+}
