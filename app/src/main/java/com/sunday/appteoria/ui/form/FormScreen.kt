@@ -4,16 +4,27 @@ import android.content.Context
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusDirection
+import androidx.compose.ui.focus.FocusManager
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.platform.SoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardCapitalization
 import com.sunday.appteoria.util.UiText
 import com.sunday.appteoria.R
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun FormScreen(formVM: FormVM, context: Context) {
 
@@ -62,11 +73,14 @@ fun TextWelcome(nameStored: String) {
     Text(text = stringResource(id = R.string.form_welcome_text, nameStored) )
 }
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun TextFieldName(
     name: String,
     onChange: (String) -> Unit,
     label: String = stringResource(id = R.string.form_text_field_name),
+    localFocusManager: FocusManager = LocalFocusManager.current,
+    keyboardController: SoftwareKeyboardController? = LocalSoftwareKeyboardController.current
 ) {
     OutlinedTextField(
         value = name,
@@ -76,7 +90,18 @@ fun TextFieldName(
             CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
                 Text(text = label, style = MaterialTheme.typography.body2)
             }
-        }
+        },
+        keyboardOptions = KeyboardOptions(
+            capitalization = KeyboardCapitalization.Words,
+            imeAction = ImeAction.Done
+        ),
+        keyboardActions = KeyboardActions(
+            // onNext = {localFocusManager.moveFocus(FocusDirection.Down)},
+            onDone = {
+                localFocusManager.clearFocus()
+                keyboardController?.hide()
+            }
+        )
     )
 }
 
