@@ -14,16 +14,26 @@
     <string name="validation_error_phone_can_not_be_empty">El celular no puede estar vacío.</string>
     <string name="validation_error_phone_length_too_short">El celular debe tener %1$d dígitos.</string>
     <string name="validation_error_phone_not_start_by_nine">El celular debe iniciar con %1$s.</string>
+    <string name="validation_error_gender_can_not_be_empty">El género no puede estar vacío.</string>
+    <string name="validation_error_hobby_choose_one">Elige uno como mínimo.</string>
     <string name="validation_error_password_length_too_short">La contraseña debe tener mínimo %1$d caracteres.</string>
     <string name="validation_error_password_not_contains_letters_and_digits">La contraseña debe tener letras y números.</string>
 
     <!-- Form -->
-    <string name="form_text_welcome">Hola %1$s!</string>
+    <string name="form_text_welcome">¡Hola %1$s!</string>
     <string name="form_text_field_name">Nombre</string>
+    <string name="form_text_field_email">Email</string>
+    <string name="form_text_field_phone">Celular</string>
+    <string name="form_radio_button_gender">Género:</string>
+    <string name="form_radio_button_male">Hombre</string>
+    <string name="form_radio_button_female">Mujer</string>
+    <string name="form_checkbox_hobby">Intereses:</string>
+    <string name="form_checkbox_music">Música</string>
+    <string name="form_checkbox_technology">Tecnología</string>
+    <string name="form_checkbox_movies">Películas</string>
+    <string name="form_checkbox_sport">Deporte</string>
     <string name="form_text_field_password">Contraseña</string>
     <string name="form_text_field_password_show_password">Ver contraseña</string>
     <string name="form_text_field_password_hide_password">Ocultar contraseña</string>
     <string name="form_button_send">Enviar</string>
-    <string name="form_text_field_email">Email</string>
-    <string name="form_text_field_phone">Celular</string>
 </resources>

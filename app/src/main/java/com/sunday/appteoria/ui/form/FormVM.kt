@@ -1,8 +1,10 @@
 package com.sunday.appteoria.ui.form
 
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.toMutableStateList
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sunday.appteoria.data.Answer
@@ -43,11 +45,24 @@ class FormVM @Inject constructor(
             is FormEvent.OnChangeName -> state = state.copy(name = event.name)
             is FormEvent.OnChangeEmail -> state = state.copy(email = event.email)
             is FormEvent.OnChangePhone -> state = state.copy(phone = event.phone)
+            is FormEvent.OnSelectGender -> state = state.copy(gender = event.gender)
+            is FormEvent.OnCheckHobby -> onCheckHobby(event.hobby)
             is FormEvent.OnChangePassword -> state = state.copy(password = event.password)
             is FormEvent.OnButtonClick -> onButtonClick()
             is FormEvent.OnPasswordVisibility -> state =
                 state.copy(showPassword = event.showPassword)
         }
+    }
+
+    private fun onCheckHobby(hobby: String) {
+        val hobbies = state.hobbies.toMutableStateList()
+        if (!hobbies.contains(hobby)) {
+            hobbies.add(hobby)
+        } else {
+            hobbies.remove(hobby)
+        }
+        state = state.copy(hobbies = hobbies)
+//        Log.i("MyTag", "Lista: ${hobbies.toList()}")
     }
 
     private fun onButtonClick() {
@@ -66,7 +81,9 @@ class FormVM @Inject constructor(
                         nameError = answers.component1().message,
                         emailError = answers.component2().message,
                         phoneError = answers.component3().message,
-                        passwordError = answers.component4().message
+                        genderError = answers.component4().message,
+                        hobbyError = answers.component5().message,
+                        passwordError = answers[5].message
                     )
                 } else {
                     uiEventChannel.send(
@@ -78,6 +95,8 @@ class FormVM @Inject constructor(
                         nameError = null,
                         emailError = null,
                         phoneError = null,
+                        genderError = null,
+                        hobbyError = null,
                         passwordError = null
                     )
                 }
